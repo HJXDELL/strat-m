@@ -57,7 +57,7 @@ public class HTMLReporter extends AbstractReporter {
 	private static final String PASSED_TESTS_KEY = "passedTests";
 	private static final String METHODS_KEY = "methods";
 
-	private static final String REPORT_DIRECTORY = "html";
+	private static final String REPORT_DIRECTORY = "summary";
 
 	private static final Comparator<ITestNGMethod> METHOD_COMPARATOR = new TestMethodComparator();
 	private static final Comparator<ITestResult> RESULT_COMPARATOR = new TestResultComparator();

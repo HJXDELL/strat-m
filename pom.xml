@@ -246,7 +246,7 @@
 			<resource>
 				<directory>config</directory>
 				<includes>
-					<include>**/*</include>
+					<include>**/*.properties</include>
 				</includes>
 			</resource>
 		</resources>
@@ -267,10 +267,17 @@
 						</property>
 						<property>
 							<name>listener</name>
-							<value>com.fudax.report.HTMLReporter, org.testng.reporters.FailedReporter</value>
+							<value>com.fudax.report.HTMLReporter,
+								org.testng.reporters.FailedReporter,com.fudax.report.realtime.listener.RealTimeTestResultListener</value>
 						</property>
 					</properties>
 					<reportsDirectory>${basedir}/report</reportsDirectory>
+					<systemProperties>
+						<property>
+							<name>realtimeReportDir</name>
+							<value>${basedir}/report/realtime</value>
+						</property>
+					</systemProperties>
 				</configuration>
 				<dependencies>
 					<dependency>
