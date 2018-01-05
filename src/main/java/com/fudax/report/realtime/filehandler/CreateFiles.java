@@ -36,20 +36,20 @@ public class CreateFiles {
 		/*
 		 * STEP 3: get all the resource files from 'html-rsc' folder
 		 */
-		File[] css_files = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.CSS_FOLDER);
-		File[] font_files = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.FONT_FOLDER);
-		File[] img_files = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.IMAGE_FOLDER);
-		File[] js_files = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.JS_FOLDER);
+		File[] cssFiles = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.CSS_FOLDER);
+		File[] fontFiles = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.FONT_FOLDER);
+		File[] imgFiles = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.IMAGE_FOLDER);
+		File[] jsFiles = getFilesUnder(FileNameConstants.RESOURCE_FOLDER + "/" + FileNameConstants.JS_FOLDER);
 
 		/*
 		 * STEP 4: put all the resource files to the respective folders under
 		 * RootResult folder, i.e - 'RealtimeReport' which is already created at
 		 * step 2.
 		 */
-		copyFilesToDestination(css_files, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.CSS_FOLDER);
-		copyFilesToDestination(font_files, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.FONT_FOLDER);
-		copyFilesToDestination(img_files, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.IMAGE_FOLDER);
-		copyFilesToDestination(js_files, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.JS_FOLDER);
+		copyFilesToDestination(cssFiles, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.CSS_FOLDER);
+		copyFilesToDestination(fontFiles, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.FONT_FOLDER);
+		copyFilesToDestination(imgFiles, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.IMAGE_FOLDER);
+		copyFilesToDestination(jsFiles, FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.JS_FOLDER);
 
 		/*
 		 * STEP 5: Put values related to current suite at a set, 'suiteSet'
@@ -57,8 +57,7 @@ public class CreateFiles {
 		if (DataMap.suiteMap.containsKey(iSuite)) {
 			int suiteIndex = DataMap.suiteMap.get(iSuite);
 			String suiteName = DataPreparator.prepareSuiteName(iSuite);
-			DataSuite ds = new DataSuite(suiteIndex, suiteName,
-					FileNameConstants.DASHBOARD_HTML + "-" + suiteIndex + ".html");
+			DataSuite ds = new DataSuite(suiteIndex, suiteName, FileNameConstants.DASHBOARD_HTML + "-" + suiteIndex + ".html");
 			DataMap.suiteSet.add(ds);
 		}
 
@@ -101,21 +100,36 @@ public class CreateFiles {
 		}
 		PrintWriter pw = null;
 		try {
-			pw = new PrintWriter(new FileOutputStream(
-					new File(FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.INDEX_HTML), false));
+			pw = new PrintWriter(new FileOutputStream(new File(FileNameConstants.ROOT_FOLDER + "/" + FileNameConstants.INDEX_HTML), false));
 		} catch (FileNotFoundException e) {
 		}
 		if (pw != null) {
 			pw.write(FileNameConstants.INDEX_HEADER);
 			pw.write(FileNameConstants.INDEX_BODY_PRE);
 			for (DataSuite ds : DataMap.suiteSet) {
-				pw.write("<a class='btn btn-link' href='" + ds.getSuiteHTMLPath()
-						+ "' style='font-size:24px;'><i class='fa fa-dashboard'></i> " + ds.getSuiteName()
-						+ "</a><br/>");
+				pw.write("<a class='btn btn-link' href='" + ds.getSuiteHTMLPath() + "' style='font-size:24px;'><i class='fa fa-dashboard'></i> "
+						+ ds.getSuiteName() + "</a><br/>");
 			}
 			pw.write(FileNameConstants.INDEX_BODY_POST);
 			pw.flush();
 			pw.close();
 		}
+	}
+
+	@Override
+	public int hashCode() {
+		return 0;
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		if (other == this) {
+			return true;
+		}
+		if (!(other instanceof ISuite)) {
+			return false;
+		}
+		
+		return false;
 	}
 }

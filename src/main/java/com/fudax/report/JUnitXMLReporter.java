@@ -57,6 +57,7 @@ public class JUnitXMLReporter extends AbstractReporter {
 	 * @param outputDirectoryName
 	 *            The directory in which to create the report.
 	 ****************************************************************************************/
+	@Override
 	public void generateReport(List<XmlSuite> xmlSuites, List<ISuite> suites, String outputDirectoryName) {
 		removeEmptyDirectories(new File(outputDirectoryName));
 

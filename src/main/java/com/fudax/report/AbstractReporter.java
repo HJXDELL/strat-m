@@ -201,6 +201,7 @@ public abstract class AbstractReporter implements IReporter {
 	}
 
 	private static final class EmptyDirectoryFilter implements FileFilter {
+		@Override
 		public boolean accept(File file) {
 			return file.isDirectory() && file.listFiles().length == 0;
 		}

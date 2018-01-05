@@ -24,6 +24,7 @@ import org.testng.ITestResult;
  * @author Daniel Dyer
  ****************************************************************************************/
 class TestResultComparator implements Comparator<ITestResult> {
+	@Override
 	public int compare(ITestResult result1, ITestResult result2) {
 		return result1.getName().compareTo(result2.getName());
 	}

@@ -15,4 +15,5 @@ public class DataMap {
 	volatile public static Map<IClass, Integer> testClassMap = new HashMap<IClass, Integer>();
 
 	volatile public static Set<DataSuite> suiteSet = new ConcurrentSkipListSet<>();
+	
 }

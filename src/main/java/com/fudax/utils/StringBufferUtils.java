@@ -70,7 +70,7 @@ public class StringBufferUtils {
 		if (MapUtils.isEmpty(dataMap)) {
 			return dataMap;
 		}
-		
+
 		LinkedHashMap<String, String> tempMap = new LinkedHashMap<String, String>();
 		Iterator<Entry<String, String>> it = dataMap.entrySet().iterator();
 		while (it.hasNext()) {
@@ -609,8 +609,9 @@ public class StringBufferUtils {
 			}
 			if ((b & 0xc0) == 0x80) { // 10xxxxxx (continuation byte)
 				sumb = (sumb << 6) | (b & 0x3f); // Add 6 bits to sumb
-				if (--more == 0)
+				if (--more == 0) {
 					sbuf.append((char) sumb); // Add char to sbuf
+				}
 			} else if ((b & 0x80) == 0x00) { // 0xxxxxxx (yields 7 bits)
 				sbuf.append((char) b); // Store in sbuf
 			} else if ((b & 0xe0) == 0xc0) { // 110xxxxx (yields 5 bits)
@@ -653,8 +654,9 @@ public class StringBufferUtils {
 				}
 				for (int j = 0; j < b.length; j++) {
 					int k = b[j];
-					if (k < 0)
+					if (k < 0) {
 						k += 256;
+					}
 					sb.append("%" + Integer.toHexString(k).toUpperCase());
 				}
 			}
@@ -710,22 +712,24 @@ public class StringBufferUtils {
 					}
 					outBuffer.append((char) value);
 				} else {
-					if (aChar == 't')
+					if (aChar == 't') {
 						aChar = '\t';
-					else if (aChar == 'r')
+					} else if (aChar == 'r') {
 						aChar = '\r';
-					else if (aChar == 'n')
+					} else if (aChar == 'n') {
 						aChar = '\n';
-					else if (aChar == 'f')
+					} else if (aChar == 'f') {
 						aChar = '\f';
+					}
 					outBuffer.append(aChar);
 				}
-			} else
+			} else {
 				outBuffer.append(aChar);
+			}
 		}
 		return outBuffer.toString();
 	}
-	
+
 	public static void jdbcTimeStampFormat(List<Map<String, String>> query) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 
@@ -749,7 +753,7 @@ public class StringBufferUtils {
 			}
 		}
 	}
-	
+
 	public static void timeStampFormat(List<LinkedHashMap<String, String>> query) {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
 

@@ -124,8 +124,7 @@ public class DataPreparator {
 						DataProvider dataProviderAnnotation = m.getAnnotation(DataProvider.class);
 						String dataProviderMethodName = m.getName(); // my
 						String thisDataProviderName = dataProviderAnnotation.name();
-						if (dataProviderName.equals(thisDataProviderName)
-								|| dataProviderName.equals(dataProviderMethodName)) {
+						if (dataProviderName.equals(thisDataProviderName) || dataProviderName.equals(dataProviderMethodName)) {
 							try {
 								Object[][] theData = (Object[][]) m.invoke(instance);
 								Integer numberOfDataProviderRows = theData.length;
@@ -309,15 +308,15 @@ public class DataPreparator {
 		return time;
 	}
 
-	private static String getStackStraceInformation(Throwable th){
+	private static String getStackStraceInformation(Throwable th) {
 		String stack = null;
 		StringBuilder sb = new StringBuilder();
 		String message = th.getMessage();
-		if(message != null){
-			sb.append(message+"\n");
+		if (message != null) {
+			sb.append(message + "\n");
 		}
 		for (StackTraceElement iTestStackTrace : th.getStackTrace()) {
-			sb.append(iTestStackTrace.toString()+"\n");
+			sb.append(iTestStackTrace.toString() + "\n");
 		}
 		stack = sb.toString();
 		return stack;
@@ -341,30 +340,31 @@ public class DataPreparator {
 
 	synchronized public static String prepareAnnoatationName(ITestResult tr) {
 		String annoatationName = null;
-		if (tr.getMethod().isAfterClassConfiguration())
+		if (tr.getMethod().isAfterClassConfiguration()) {
 			annoatationName = "AfterClassConfiguration_Method";
-		else if (tr.getMethod().isAfterGroupsConfiguration())
+		} else if (tr.getMethod().isAfterGroupsConfiguration()) {
 			annoatationName = "AfterClassConfiguration_Method";
-		else if (tr.getMethod().isAfterGroupsConfiguration())
+		} else if (tr.getMethod().isAfterGroupsConfiguration()) {
 			annoatationName = "AfterClassConfiguration_Method";
-		else if (tr.getMethod().isAfterSuiteConfiguration())
+		} else if (tr.getMethod().isAfterSuiteConfiguration()) {
 			annoatationName = "AfterSuiteConfiguration_Method";
-		else if (tr.getMethod().isAfterTestConfiguration())
+		} else if (tr.getMethod().isAfterTestConfiguration()) {
 			annoatationName = "AfterTestConfiguration_Method";
-		else if (tr.getMethod().isBeforeClassConfiguration())
+		} else if (tr.getMethod().isBeforeClassConfiguration()) {
 			annoatationName = "BeforeClassConfiguration_Method";
-		else if (tr.getMethod().isBeforeGroupsConfiguration())
+		} else if (tr.getMethod().isBeforeGroupsConfiguration()) {
 			annoatationName = "BeforeGroupsConfiguration_Method";
-		else if (tr.getMethod().isBeforeMethodConfiguration())
+		} else if (tr.getMethod().isBeforeMethodConfiguration()) {
 			annoatationName = "BeforeMethodConfiguration_Method";
-		else if (tr.getMethod().isBeforeSuiteConfiguration())
+		} else if (tr.getMethod().isBeforeSuiteConfiguration()) {
 			annoatationName = "BeforeSuiteConfiguration_Method";
-		else if (tr.getMethod().isBeforeTestConfiguration())
+		} else if (tr.getMethod().isBeforeTestConfiguration()) {
 			annoatationName = "BeforeTestConfiguration_Method";
-		else if (tr.getMethod().isTest())
+		} else if (tr.getMethod().isTest()) {
 			annoatationName = "Test_Method";
-		else
+		} else {
 			annoatationName = "Unknown";
+		}
 
 		return annoatationName;
 	}

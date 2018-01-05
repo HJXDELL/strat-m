@@ -24,6 +24,7 @@ import java.util.Comparator;
  * @author Daniel Dyer
  ****************************************************************************************/
 class TestClassComparator implements Comparator<IClass> {
+	@Override
 	public int compare(IClass class1, IClass class2) {
 		return class1.getName().compareTo(class2.getName());
 	}
