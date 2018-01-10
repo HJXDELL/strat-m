@@ -27,14 +27,14 @@ public class IEDriverController implements DriverController {
 	private WebDriver driver;
 	private HTMLLogger logger;
 
-	private final WebDriverSettings setter = new WebDriverSettings();
 	private final Win32GuiByVbs vbs = new Win32GuiByVbs();
 	private final Win32GuiByAu3 AU3 = new Win32GuiByAu3();
 	private final String result = System.getProperty("user.dir") + "\\log\\";
 	
 	private ExecuteListener listener = new ExecuteListener(result);
-	private int maxWaitfor = setter.MAX_WAIT;// 单步操作超时时间
-	private int maxLoadTime = setter.MAX_LOAD_WAIT;// 页面加载超时时间
+	private final DriverSetting doptions = new DriverSetting();
+	private int maxWaitfor = doptions.MAX_WAIT;// 单步操作超时时间
+	private int maxLoadTime = doptions.MAX_LOAD_WAIT;// 页面加载超时时间
 
 	@Override
 	public WebDriver getDriver() {
@@ -177,23 +177,23 @@ public class IEDriverController implements DriverController {
 	private DesiredCapabilities getCapabilities() throws Exception {
 		DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
 
-		capability.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, setter.IGNORE_ZOOM_SETTING);
+		capability.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, doptions.IGNORE_ZOOM_SETTING);
 		capability.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,
-				setter.IGNORE_PROTECTED_MODE_SETTINGS);
+				doptions.IGNORE_PROTECTED_MODE_SETTINGS);
 		capability.setCapability(InternetExplorerDriver.ENABLE_ELEMENT_CACHE_CLEANUP,
-				setter.ENABLE_ELEMENT_CACHE_CLEANUP);
-		capability.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, setter.ENABLE_PERSISTENT_HOVERING);
-		capability.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, setter.REQUIRE_WINDOW_FOCUS);
-		capability.setCapability(InternetExplorerDriver.BROWSER_ATTACH_TIMEOUT, setter.BROWSER_ATTACHT_IMEOUT);
+				doptions.ENABLE_ELEMENT_CACHE_CLEANUP);
+		capability.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, doptions.ENABLE_PERSISTENT_HOVERING);
+		capability.setCapability(InternetExplorerDriver.REQUIRE_WINDOW_FOCUS, doptions.REQUIRE_WINDOW_FOCUS);
+		capability.setCapability(InternetExplorerDriver.BROWSER_ATTACH_TIMEOUT, doptions.BROWSER_ATTACHT_IMEOUT);
 
-		capability.setCapability(CapabilityType.SUPPORTS_ALERTS, setter.SUPPORTS_ALERTS);
-		capability.setCapability(CapabilityType.TAKES_SCREENSHOT, setter.TAKES_SCREENSHOT);
-		capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, setter.ACCEPT_SSL_CERTS);
-		capability.setCapability(CapabilityType.HAS_NATIVE_EVENTS, setter.HAS_NATIVE_EVENTS);
-		capability.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, setter.SUPPORTS_JAVASCRIPT);
-		capability.setCapability(CapabilityType.ELEMENT_SCROLL_BEHAVIOR, setter.ELEMENT_SCROLL_BEHAVIOR);
-		capability.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, setter.SUPPORTS_FINDING_BY_CSS);
-		capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, setter.UNEXPECTED_ALERT_BEHAVIOUR);
+		capability.setCapability(CapabilityType.SUPPORTS_ALERTS, doptions.SUPPORTS_ALERTS);
+		capability.setCapability(CapabilityType.TAKES_SCREENSHOT, doptions.TAKES_SCREENSHOT);
+		capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, doptions.ACCEPT_SSL_CERTS);
+		capability.setCapability(CapabilityType.HAS_NATIVE_EVENTS, doptions.HAS_NATIVE_EVENTS);
+		capability.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, doptions.SUPPORTS_JAVASCRIPT);
+		capability.setCapability(CapabilityType.ELEMENT_SCROLL_BEHAVIOR, doptions.ELEMENT_SCROLL_BEHAVIOR);
+		capability.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, doptions.SUPPORTS_FINDING_BY_CSS);
+		capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, doptions.UNEXPECTED_ALERT_BEHAVIOUR);
 		return capability;
 	}
 
@@ -207,10 +207,10 @@ public class IEDriverController implements DriverController {
 	private void startDriverService(File log) throws Exception {
 		ieDriverEnvironmentSetter();
 		Builder builder = new InternetExplorerDriverService.Builder();
-		if (setter.OUTPUT_ON) {
-			service = builder.usingAnyFreePort().withLogFile(log).withLogLevel(setter.LOG_LEVEL).build();
+		if (doptions.OUTPUT_ON) {
+			service = builder.usingAnyFreePort().withLogFile(log).withLogLevel(doptions.LOG_LEVEL).build();
 		} else {
-			service = builder.usingAnyFreePort().withLogLevel(setter.LOG_LEVEL).build();
+			service = builder.usingAnyFreePort().withLogLevel(doptions.LOG_LEVEL).build();
 		}
 		service.start();
 		Runtime.getRuntime().addShutdownHook(new Thread() {

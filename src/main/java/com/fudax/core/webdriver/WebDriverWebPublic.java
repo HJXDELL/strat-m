@@ -52,10 +52,10 @@ public class WebDriverWebPublic {
 	protected static final String FORMATTER = "_yyyyMMdd_HHmmssSSS";
 
 	private final String result = System.getProperty("user.dir") + "\\log\\";
-	private final WebDriverSettings setter = new WebDriverSettings();
-	protected int maxWaitfor = setter.MAX_WAIT;// 单步操作超时时间
-	protected int maxLoadTime = setter.MAX_LOAD_WAIT;// 页面加载超时时间
-	protected int stepTimeUnit = setter.SLEEP_UNIT;// 单次循环思考时间
+	private final DriverSetting doptions = new DriverSetting();
+	protected int maxWaitfor = doptions.MAX_WAIT;// 单步操作超时时间
+	protected int maxLoadTime = doptions.MAX_LOAD_WAIT;// 页面加载超时时间
+	protected int stepTimeUnit = doptions.SLEEP_UNIT;// 单次循环思考时间
 
 	private static HTMLLogger logger;
 	private StackTraceUtils stack = new StackTraceUtils();
@@ -521,7 +521,8 @@ public class WebDriverWebPublic {
 
 	/**
 	 * maximize browser window</BR> 
-	 * 网页窗口最大化操作。
+	 * 网页窗口最大化操作，请注意该api与初始化设置的冲突：</BR>
+	 * &nbsp;&nbsp;&nbsp;&nbsp;ChromeOptions.addArguments("--start-maximized");</BR>
 	 */
 	protected void windowMaximize() {
 		driver.manage().window().maximize();

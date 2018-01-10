@@ -12,7 +12,6 @@ public class DemoCase extends WebDriverBaseCase {
 		String searchText = "砖家叫兽";
 		
 		startWebDriver();
-		windowMaximize();
 		this.setMaxWaitTime(5);
 
 		get("http://www.baidu.com/");

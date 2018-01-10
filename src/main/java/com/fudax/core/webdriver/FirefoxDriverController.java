@@ -21,13 +21,13 @@ public class FirefoxDriverController implements DriverController {
 	private WebDriver driver;
 	private HTMLLogger logger;
 
-	private final WebDriverSettings setter = new WebDriverSettings();
 	private final Win32GuiByVbs vbs = new Win32GuiByVbs();
 	private final String result = System.getProperty("user.dir") + "\\log\\";
 
 	private ExecuteListener listener = new ExecuteListener(result);
-	private int maxWaitfor = setter.MAX_WAIT;// 单步操作超时时间
-	private int maxLoadTime = setter.MAX_LOAD_WAIT;// 页面加载超时时间
+	private final DriverSetting doptions = new DriverSetting();
+	private int maxWaitfor = doptions.MAX_WAIT;// 单步操作超时时间
+	private int maxLoadTime = doptions.MAX_LOAD_WAIT;// 页面加载超时时间
 	private String executable;
 
 	@Override
@@ -159,14 +159,14 @@ public class FirefoxDriverController implements DriverController {
 	private DesiredCapabilities getCapabilities() throws Exception {
 		DesiredCapabilities capability = DesiredCapabilities.firefox();
 
-		capability.setCapability(CapabilityType.SUPPORTS_ALERTS, setter.SUPPORTS_ALERTS);
-		capability.setCapability(CapabilityType.TAKES_SCREENSHOT, setter.TAKES_SCREENSHOT);
-		capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, setter.ACCEPT_SSL_CERTS);
-		capability.setCapability(CapabilityType.HAS_NATIVE_EVENTS, setter.HAS_NATIVE_EVENTS);
-		capability.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, setter.SUPPORTS_JAVASCRIPT);
-		capability.setCapability(CapabilityType.ELEMENT_SCROLL_BEHAVIOR, setter.ELEMENT_SCROLL_BEHAVIOR);
-		capability.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, setter.SUPPORTS_FINDING_BY_CSS);
-		capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, setter.UNEXPECTED_ALERT_BEHAVIOUR);
+		capability.setCapability(CapabilityType.SUPPORTS_ALERTS, doptions.SUPPORTS_ALERTS);
+		capability.setCapability(CapabilityType.TAKES_SCREENSHOT, doptions.TAKES_SCREENSHOT);
+		capability.setCapability(CapabilityType.ACCEPT_SSL_CERTS, doptions.ACCEPT_SSL_CERTS);
+		capability.setCapability(CapabilityType.HAS_NATIVE_EVENTS, doptions.HAS_NATIVE_EVENTS);
+		capability.setCapability(CapabilityType.SUPPORTS_JAVASCRIPT, doptions.SUPPORTS_JAVASCRIPT);
+		capability.setCapability(CapabilityType.ELEMENT_SCROLL_BEHAVIOR, doptions.ELEMENT_SCROLL_BEHAVIOR);
+		capability.setCapability(CapabilityType.SUPPORTS_FINDING_BY_CSS, doptions.SUPPORTS_FINDING_BY_CSS);
+		capability.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, doptions.UNEXPECTED_ALERT_BEHAVIOUR);
 
 		capability.setCapability(FirefoxDriver.PROFILE, new ProfilesIni().getProfile("default"));
 		capability.setCapability(FirefoxDriver.BINARY, new FirefoxBinary(new File(executable)));
